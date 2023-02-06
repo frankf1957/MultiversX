@@ -6,8 +6,8 @@ LC_NUMERIC=en_US
 PRECISION=4
 
 
-# Maple Leaf Network
-CONTRACT_ADDRESS="erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqpp8llllscdsdm4"
+# Delegation Smart Contract
+CONTRACT_ADDRESS="erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqpp111222333444"
 
 
 function decorate {
