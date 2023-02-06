@@ -17,9 +17,14 @@ set -e
 ##  $ curl -s ${API_SERVER}/node/status | jq -r '.data.metrics.erd_latest_tag_software_version'
 ##  T1.3.30.0
 ##
+##  @frankf1957
+##  Fri 20 Jan 2023 09:45:01 PM UTC
+##
+##  support for rebranding from elrond-go-scripts to mx-chain-scripts
+##
 
 
-SCRIPTS_DIR=${HOME}/elrond-go-scripts
+SCRIPTS_DIR=${HOME}/mx-chain-scripts
 UPDATE_LOG=${HOME}/auto-updater-$(date +"%Y-%m-%d_%H:%M:%S").log
 
 
@@ -40,12 +45,12 @@ function run_script_action {
 }
 
 
-function upgrade_elrond_node {
-    log_message "Begin Elrond node upgrade."
+function upgrade_node {
+    log_message "Begin mx-chain node upgrade."
     log_message "Output from script.sh logged to file: $UPDATE_LOG"
 
-    run_script_action "stop"
     run_script_action "github_pull"
+    run_script_action "stop"
     run_script_action "upgrade"
 
     START_TIME_SECONDS=$(cat ${HOME}/elrond-nodes/node-0/config/nodesSetup.json | awk -F'[ ":,]*' '/startTime/{print $3}')
@@ -56,14 +61,14 @@ function upgrade_elrond_node {
 
     run_script_action "start"
 
-    log_message "Finished Elrond node upgrade."
+    log_message "Finished mx-chain node upgrade."
 }
 
 
 ## auto-updater starting
-log_message "Start - auto-update for Elrond TESTNET and DEVNET nodes."
+log_message "Start - auto-update for mx-chain nodes."
 
-## elrond-go-scripts directory must exist, or exit
+## mx-chain-scripts directory must exist, or exit
 if [[ ! -d $SCRIPTS_DIR ]]
 then
     log_message "Required directory: $SCRIPTS_DIR does not exist !"
@@ -102,10 +107,10 @@ fi
 
 ##  There is a new version available - invoke the update
 log_message "Triggering automated update !"
-upgrade_elrond_node
+upgrade_node
 
 ## auto-updater finished
-log_message "End - auto-update for Elrond testnet nodes."
+log_message "End - auto-update for mx-chain nodes."
 printf "\n"
 
 # vim: ts=4 sw=4 ai expandtab
